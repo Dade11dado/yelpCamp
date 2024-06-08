@@ -1,0 +1,146 @@
+<%layout("layout/boilerplate")%>
+<span class="loader" id="spinner"></span>
+<div class="row" id="newSheet">
+  <h1 class="text-center">Edit Campground</h1>
+  <div class="col-6 offset-3">
+    <form
+      action="/campgrounds/<%=campground._id%>?_method=PUT"
+      method="post"
+      novalidate
+      class="validatedForm"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input
+          required
+          type="text"
+          id="title"
+          name="campground[title]"
+          class="form-control"
+          value="<%= campground.title  %>"
+        />
+        <div class="invalid-feedback">Non puoi lasciare il campo vuoto</div>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location:</label>
+        <input
+          required
+          type="text"
+          id="location"
+          name="campground[location]"
+          class="form-control"
+          value="<%=campground.location  %>"
+        />
+        <div class="invalid-feedback">Non puoi lasciare il campo vuoto</div>
+      </div>
+      <label for="inputGroupFile02" class="form-label">Upload image:</label>
+      <div class="input-group mb-3">
+        <input
+          type="file"
+          class="form-control"
+          id="inputGroupFile02"
+          name="image"
+          multiple
+        />
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Campground Price:</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">$</span>
+          </div>
+          <input
+            required
+            id="price"
+            type="text"
+            class="form-control"
+            placeholder="0.00"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            name="campground[price]"
+            value="<%=campground.price  %>"
+          />
+          <div class="invalid-feedback">Non puoi lasciare il campo vuoto</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea
+          required
+          type="text"
+          id="description"
+          name="campground[description]"
+          class="form-control"
+        >
+<%=campground.description  %></textarea
+        >
+        <div class="invalid-feedback">Non puoi lasciare il campo vuoto</div>
+      </div>
+      <div id="pic-container">
+        <% campground.image.forEach((img,i)=>{ %>
+        <div class="d-flex flex-column px-3">
+          <div>
+            <img src="<%= img.thumbnail %>" class="img-thumbnail" />
+          </div>
+          <div class="form-check-inline">
+            <input
+              type="checkbox"
+              name="deleteImages[]"
+              id="image-<%= i  %>"
+              value="<%= img.filename  %>"
+            />
+            <label for="image-<%= i  %>">Delete image</label>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-info" id="btnNew">Edit campground</button>
+      </div>
+    </form>
+    <a href="/campground/<%=campground._id%>">Back to campground</a>
+  </div>
+</div>
+<style>
+  #pic-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    max-width: 600px;
+  }
+  #spinner {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    display: none;
+  }
+  .loader {
+    width: 100px;
+    height: 100px;
+    border: 5px solid #fff;
+    border-bottom-color: #ff3d00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+<script src="/javascript/spinner.js"></script>

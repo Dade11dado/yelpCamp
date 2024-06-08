@@ -1,0 +1,47 @@
+<% layout("layout/boilerplate") %>
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+  <div class="row">
+    <div class="">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">Login</h5>
+          <form
+            action="/login"
+            method="POST"
+            novalidate
+            class="validatedForm w-100"
+          >
+            <div class="mb-3">
+              <label for="username" class="form-label">Username:</label>
+              <input
+                required
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+              />
+              <div class="invalid-feedback">
+                Non puoi lasciare il campo vuoto
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password:</label>
+              <input
+                required
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+              />
+              <div class="invalid-feedback">
+                Non puoi lasciare il campo vuoto
+              </div>
+            </div>
+            <button class="btn btn-success">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
